@@ -1,12 +1,10 @@
-const {Shema, module} = require('mongoose')
+const { Schema, model } = require('mongoose');
 
+const UserSchema = new Schema({
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    isActivated: { type: Boolean, default: false }, // Исправлено имя поля
+    activationLink: { type: String }
+});
 
-const UserShema =  new Shema({
-    email:{type: String, unique: true, require: true},
-    password:{type: String, require: true},
-    isAtivated:{type: Boolean, default: false},
-    acivationLink: {type: String}
-
-})
-
-module.exports = module('User', UserShema)
+module.exports = model('User', UserSchema);
