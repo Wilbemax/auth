@@ -33,8 +33,6 @@ class mailService {
             console.error('Ошибка при отправке активационного письма:', error);
         }
     }
-
-
 }
 
 module.exports = new mailService()
