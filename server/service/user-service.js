@@ -54,7 +54,7 @@ class UserService {
 		}
 		const userDto = new UserDto(user);
 		const tokens = tokenServise.generateToken({ ...userDto });
-        if (!tokens) {
+		if (!tokens) {
 			throw ApiError.BadRequest('Ошибка генерации');
 		}
 		await tokenServise.saveToken(userDto.id, tokens.refreshToken);
@@ -62,6 +62,36 @@ class UserService {
 			...tokens,
 			user: userDto,
 		};
+	}
+
+	async logout(refreshToken) {
+		const token = await tokenServise.removeToken(refreshToken);
+		return token;
+	}
+
+	async refresh(refreshToken) {
+		if (!refreshToken) {
+			throw ApiError.UnauthorizedError();
+		}
+		const userData = tokenServise.validateRefreshToken(refreshToken);
+		const tokenFromDB = await tokenServise.findToken(refreshToken);
+		if (!userData || !tokenFromDB) {
+			throw ApiError.UnauthorizedError();
+		}
+		const user = await UserModule.findById(userData.id);
+		const userDto = new UserDto(user);
+		const tokens = tokenServise.generateToken({ ...userDto });
+		await tokenServise.saveToken(userDto.id, tokens.refreshToken);
+
+		return {
+			...tokens,
+			user: userDto,
+		};
+	}
+
+	async getAllUsers() {
+		const users = await UserModule.find();
+		return users;
 	}
 }
 
