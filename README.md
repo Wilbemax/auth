@@ -8,7 +8,7 @@
 
 1. Клонируйте репозиторий:
    ```
-   git clone https://github.com/wilbemax/Try-auth.git
+   git clone https://github.com/wilbemax/auth.git
    ```
 2. Перейдите в каталог с проектом:
    ```
@@ -95,7 +95,7 @@ This module provides functionality for user registration. It includes a ready-ma
 
 1. Clone the repository:
    ```
-   git clone https://github.com/wilbemax/Try-auth.git
+   git clone https://github.com/wilbemax/auth.git
    ```
 2. Navigate to the project directory:
    ```
